@@ -1,1 +1,33 @@
-<p>data-table works!</p>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th
+        *ngFor="let col of columns"
+        (click)="col.sortable && onSort(col.key)"
+        [class.data-table__sortable]="col.sortable"
+      >
+        {{ col.header }}
+        <span *ngIf="col.sortable && sortKey === col.key">
+          {{ sortDirection === 'asc' ? '▲' : '▼' }}
+        </span>
+      </th>
+      <th *ngIf="showActions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngFor="let col of columns">
+        {{ row[col.key] }}
+      </td>
+      <td *ngIf="showActions" class="data-table__actions">
+        <button (click)="edit.emit(row)">Düzenle</button>
+        <button (click)="delete.emit(row)">Sil</button>
+      </td>
+    </tr>
+    <tr *ngIf="data.length === 0">
+      <td [attr.colspan]="columns.length + (showActions ? 1 : 0)">
+        <ng-content select="[emptyState]"></ng-content>
+      </td>
+    </tr>
+  </tbody>
+</table>
