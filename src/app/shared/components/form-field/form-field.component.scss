@@ -1,0 +1,6 @@
+.form-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
+.form-field__label { font-weight: 600; font-size: 14px; }
+.form-field__required { color: #dc2626; }
+.form-field__input { padding: 8px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+.form-field__input--invalid { border-color: #dc2626; }
+.form-field__error { color: #dc2626; font-size: 12px; }
