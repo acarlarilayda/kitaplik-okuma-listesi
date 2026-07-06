@@ -1,0 +1,16 @@
+@if (acikMi) {
+  <div class="dialog-arkaplan" (click)="onIptalEt()">
+    <div class="dialog-kutu" (click)="$event.stopPropagation()">
+      <h3 class="dialog-kutu__baslik">{{ baslik }}</h3>
+      <p class="dialog-kutu__mesaj">{{ mesaj }}</p>
+      <div class="dialog-kutu__butonlar">
+        <button class="dialog-kutu__buton dialog-kutu__buton--iptal" (click)="onIptalEt()">
+          {{ iptalMetni }}
+        </button>
+        <button class="dialog-kutu__buton dialog-kutu__buton--onay" (click)="onOnayla()">
+          {{ onayMetni }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
