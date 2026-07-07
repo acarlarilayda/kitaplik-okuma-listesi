@@ -1,21 +1,100 @@
+.data-table-wrapper {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
 .data-table {
   width: 100%;
   border-collapse: collapse;
-}
+  table-layout: auto;
 
-.data-table th,
-.data-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #e5e7eb;
-  text-align: left;
-  font-size: 14px;
+  th,
+  td {
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    padding: var(--space-4) var(--space-5);
+    text-align: left;
+    font-size: var(--font-size-sm);
+  }
+
+  thead {
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--color-border-light);
+    transition: background-color var(--transition-fast);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: var(--color-primary-light);
+    }
+  }
+
+  td {
+    color: var(--color-text-primary);
+  }
 }
 
 .data-table__sortable {
   cursor: pointer;
   user-select: none;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 
-.data-table__actions button {
-  margin-right: 8px;
+.data-table__actions {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.data-table__btn {
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  margin-left: var(--space-2);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: var(--color-bg);
+    border-color: var(--color-text-muted);
+  }
+
+  &--edit:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+
+  &--delete:hover {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+    background: var(--color-danger-bg);
+  }
 }

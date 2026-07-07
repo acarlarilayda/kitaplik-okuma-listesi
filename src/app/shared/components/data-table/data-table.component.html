@@ -1,3 +1,4 @@
+<div class="data-table-wrapper">
 <table class="data-table">
   <thead>
     <tr>
@@ -29,11 +30,10 @@
   <span *ngIf="col.key !== 'durum' && col.key !== 'puan' && col.key !== 'eklenmeTarihi'">
     {{ row[col.key] }}
   </span>
-</td>
-      <td *ngIf="showActions" class="data-table__actions">
-        <button (click)="edit.emit(row)">Düzenle</button>
-        <button (click)="delete.emit(row)">Sil</button>
-      </td>
+<td *ngIf="showActions" class="data-table__actions">
+          <button (click)="edit.emit(row)" class="data-table__btn data-table__btn--edit">Düzenle</button>
+          <button (click)="delete.emit(row)" class="data-table__btn data-table__btn--delete">Sil</button>
+        </td>
     </tr>
     <tr *ngIf="data.length === 0">
       <td [attr.colspan]="columns.length + (showActions ? 1 : 0)">
@@ -42,3 +42,4 @@
     </tr>
   </tbody>
 </table>
+</div>
