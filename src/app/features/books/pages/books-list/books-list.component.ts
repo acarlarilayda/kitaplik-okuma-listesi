@@ -50,6 +50,17 @@ export class BooksListComponent {
   { key: 'eklenmeTarihi', header: 'Eklenme Tarihi', sortable: true }
 ];
 
+// İSTATİSTİKLER: kart alanı için hesaplanan sayılar
+  stats = computed(() => {
+    const list = this.books();
+    return {
+      toplam: list.length,
+      okunacak: list.filter(b => b.durum === 'okunacak').length,
+      okunuyor: list.filter(b => b.durum === 'okunuyor').length,
+      okundu: list.filter(b => b.durum === 'okundu').length
+    };
+  });
+
   // ARAMA + FİLTRE: arama kutusuna göre kitapları filtreliyor
   filteredBooks = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();

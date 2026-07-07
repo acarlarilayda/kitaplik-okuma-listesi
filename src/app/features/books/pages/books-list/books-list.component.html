@@ -5,6 +5,24 @@
       + Yeni Kitap Ekle
     </button>
   </div>
+  <div class="books-list__stats">
+    <div class="stat-card">
+      <span class="stat-card__value">{{ stats().toplam }}</span>
+      <span class="stat-card__label">Toplam Kitap</span>
+    </div>
+    <div class="stat-card stat-card--okunacak">
+      <span class="stat-card__value">{{ stats().okunacak }}</span>
+      <span class="stat-card__label">Okunacak</span>
+    </div>
+    <div class="stat-card stat-card--okunuyor">
+      <span class="stat-card__value">{{ stats().okunuyor }}</span>
+      <span class="stat-card__label">Okunuyor</span>
+    </div>
+    <div class="stat-card stat-card--okundu">
+      <span class="stat-card__value">{{ stats().okundu }}</span>
+      <span class="stat-card__label">Okundu</span>
+    </div>
+  </div>
 
   <div class="books-list__toolbar">
     <input
