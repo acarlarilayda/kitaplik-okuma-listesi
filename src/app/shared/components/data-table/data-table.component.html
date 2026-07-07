@@ -21,9 +21,9 @@
   <span *ngIf="col.key === 'durum'" [appDurumRozeti]="row[col.key]">
     {{ row[col.key] }}
   </span>
-  <span *ngIf="col.key === 'puan'">
-    {{ row[col.key] | yildiz }}
-  </span>
+  <span *ngIf="col.key === 'puan'" class="yildiz-gosterim">
+  {{ row[col.key] | yildiz }}
+</span>
   <span *ngIf="col.key === 'eklenmeTarihi'">
     {{ row[col.key] | turkceTarih }}
   </span>
