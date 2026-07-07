@@ -1,0 +1,44 @@
+<div class="books-list">
+  <div class="books-list__header">
+    <h1>Kitaplığım</h1>
+    <button class="books-list__add-btn" (click)="goToAddBook()">
+      + Yeni Kitap Ekle
+    </button>
+  </div>
+
+  <div class="books-list__toolbar">
+    <input
+      type="text"
+      class="books-list__search"
+      placeholder="Kitap adı veya yazar ara..."
+      [value]="searchTerm()"
+      (input)="onSearchChange($any($event.target).value)"
+    />
+  </div>
+
+  <app-loading-spinner *ngIf="isLoading()"></app-loading-spinner>
+
+  <app-data-table
+    *ngIf="!isLoading()"
+    [data]="sortedBooks()"
+    [columns]="columns"
+    (sortChange)="onSortChange($event)"
+    (edit)="onEdit($event)"
+    (delete)="onDeleteRequest($event)"
+  >
+   <app-empty-state
+      emptyState
+      mesaj="Henüz kitap eklenmemiş."
+      butonMetni="İlk kitabını ekle"
+      (butonaTiklandi)="goToAddBook()"
+    ></app-empty-state>
+  </app-data-table>
+
+  <app-confirm-dialog
+    *ngIf="deleteTargetId() !== null"
+    [acikMi]="true"
+    baslik="Kitabı Sil"
+    mesaj="Bu kitabı silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
+    (onaylandi)="onDeleteConfirm()"
+    (iptalEdildi)="onDeleteCancel()"
+  ></app-confirm-dialog>
