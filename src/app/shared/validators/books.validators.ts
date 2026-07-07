@@ -37,7 +37,7 @@ export function ratingRangeValidator(): ValidatorFn {
 
     const numValue = Number(value);
 
-    if (numValue < 1 || numValue > 5) {
+    if (isNaN(numValue) || numValue < 1 || numValue > 5) {
       return { ratingRange: true };
     }
 

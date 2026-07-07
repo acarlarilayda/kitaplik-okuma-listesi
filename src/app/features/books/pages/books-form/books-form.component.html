@@ -36,7 +36,7 @@
 
     <app-form-field
       label="Sayfa Sayısı"
-      type="number"
+      type="text"
       [control]="form.get('sayfaSayisi')!"
       placeholder="Örn. 250"
       [errorMessages]="{ positiveInteger: 'Sayfa sayısı pozitif bir tam sayı olmalıdır.' }"
@@ -44,7 +44,7 @@
 
     <app-form-field
       label="Puan (1-5)"
-      type="number"
+      type="text"
       [control]="form.get('puan')!"
       placeholder="1 ile 5 arası bir değer girin"
       [errorMessages]="{ ratingRange: 'Puan 1 ile 5 arasında olmalıdır.' }"
