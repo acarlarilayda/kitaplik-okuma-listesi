@@ -17,8 +17,11 @@
   <tbody>
     <tr *ngFor="let row of data">
       <td *ngFor="let col of columns">
-        {{ row[col.key] }}
-      </td>
+  <span *ngIf="col.key === 'durum'; else normalHucre" [appDurumRozeti]="row[col.key]">
+    {{ row[col.key] }}
+  </span>
+  <ng-template #normalHucre>{{ row[col.key] }}</ng-template>
+</td>
       <td *ngIf="showActions" class="data-table__actions">
         <button (click)="edit.emit(row)">Düzenle</button>
         <button (click)="delete.emit(row)">Sil</button>

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DurumRozetiDirective } from '../../directives/durum-rozeti.directive';
 
 export interface TableColumn<T> {
   key: keyof T;
@@ -10,7 +11,7 @@ export interface TableColumn<T> {
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DurumRozetiDirective],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss'
 })
