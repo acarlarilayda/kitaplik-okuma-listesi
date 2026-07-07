@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-
+import { unsavedChangesGuard } from '../../core/guards/unsaved-changes.guard';
 export const BOOKS_ROUTES: Routes = [
   {
     path: '',
@@ -9,11 +9,13 @@ export const BOOKS_ROUTES: Routes = [
   {
     path: 'ekle',
     loadComponent: () =>
-      import('./pages/books-form/books-form.component').then(m => m.BooksFormComponent)
+      import('./pages/books-form/books-form.component').then(m => m.BooksFormComponent),
+    canDeactivate: [unsavedChangesGuard]
   },
   {
     path: ':id/duzenle',
     loadComponent: () =>
-      import('./pages/books-form/books-form.component').then(m => m.BooksFormComponent)
+      import('./pages/books-form/books-form.component').then(m => m.BooksFormComponent),
+    canDeactivate: [unsavedChangesGuard]
   }
 ];

@@ -8,7 +8,7 @@ import { KitapDurumu } from '../../models/book.model';
 import { positiveIntegerValidator, ratingRangeValidator } from '../../../../shared/validators/books.validators';
 
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
-
+import { FormDegisiklikleriVar } from '../../../../core/guards/unsaved-changes.guard';
 @Component({
   selector: 'app-books-form',
   standalone: true,
@@ -16,7 +16,7 @@ import { FormFieldComponent } from '../../../../shared/components/form-field/for
   templateUrl: './books-form.component.html',
   styleUrl: './books-form.component.scss'
 })
-export class BooksFormComponent implements OnInit {
+export class BooksFormComponent implements OnInit, FormDegisiklikleriVar {
   form!: FormGroup;
 
   // Düzenleme modunda mıyız, yoksa yeni ekleme modunda mı?
@@ -77,11 +77,14 @@ export class BooksFormComponent implements OnInit {
     } else {
       this.booksService.addBook(formValue);
     }
-
+this.form.markAsPristine();
     this.router.navigate(['/kitaplar']);
   }
 
   onCancel(): void {
     this.router.navigate(['/kitaplar']);
+  }
+  formDegistiMi(): boolean {
+    return this.form.dirty;
   }
 }
