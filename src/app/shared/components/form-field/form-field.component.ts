@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form-field',
@@ -10,7 +10,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './form-field.component.scss'
 })
 export class FormFieldComponent {
-  @Input({ required: true }) control!: FormControl;
+  @Input({ required: true }) control!: AbstractControl;
+
+get formControl(): FormControl {
+  return this.control as FormControl;
+}
   @Input() label = '';
   @Input() type: 'text' | 'number' | 'date' | 'textarea' | 'select' = 'text';
   @Input() placeholder = '';

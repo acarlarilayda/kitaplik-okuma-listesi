@@ -1,3 +1,72 @@
 .books-form {
   padding: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+}
+
+.books-form__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.books-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.books-form__label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.books-form__select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.books-form__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.books-form__submit-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #1d4ed8;
+  }
+}
+
+.books-form__cancel-btn {
+  background-color: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
 }

@@ -1,3 +1,70 @@
 <div class="books-form">
-  <p>Kitap ekleme/düzenleme formu yakında burada olacak.</p>
+  <h1>{{ isEditMode() ? 'Kitabı Düzenle' : 'Yeni Kitap Ekle' }}</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="books-form__form">
+
+    <app-form-field
+      label="Kitap Adı"
+      [control]="form.get('ad')!"
+      [required]="true"
+      placeholder="Kitabın adını girin"
+      [errorMessages]="{ required: 'Kitap adı zorunludur.' }"
+    ></app-form-field>
+
+    <app-form-field
+      label="Yazar"
+      [control]="form.get('yazar')!"
+      [required]="true"
+      placeholder="Yazarın adını girin"
+      [errorMessages]="{ required: 'Yazar adı zorunludur.' }"
+    ></app-form-field>
+
+    <app-form-field
+      label="Tür"
+      [control]="form.get('tur')!"
+      placeholder="Örn. Roman, Bilim Kurgu, Tarih"
+    ></app-form-field>
+
+    <div class="books-form__field">
+      <label class="books-form__label">Durum</label>
+      <select formControlName="durum" class="books-form__select">
+        <option *ngFor="let opt of durumOptions" [value]="opt.value">
+          {{ opt.label }}
+        </option>
+      </select>
+    </div>
+
+    <app-form-field
+      label="Sayfa Sayısı"
+      type="number"
+      [control]="form.get('sayfaSayisi')!"
+      placeholder="Örn. 250"
+      [errorMessages]="{ positiveInteger: 'Sayfa sayısı pozitif bir tam sayı olmalıdır.' }"
+    ></app-form-field>
+
+    <app-form-field
+      label="Puan (1-5)"
+      type="number"
+      [control]="form.get('puan')!"
+      placeholder="1 ile 5 arası bir değer girin"
+      [errorMessages]="{ ratingRange: 'Puan 1 ile 5 arasında olmalıdır.' }"
+    ></app-form-field>
+
+    <app-form-field
+      label="Not"
+      type="textarea"
+      [control]="form.get('not')!"
+      placeholder="Kişisel notunuz (opsiyonel)"
+    ></app-form-field>
+
+    <div class="books-form__actions">
+      <button type="button" class="books-form__cancel-btn" (click)="onCancel()">
+        Vazgeç
+      </button>
+      <button type="submit" class="books-form__submit-btn">
+        {{ isEditMode() ? 'Güncelle' : 'Kaydet' }}
+      </button>
+    </div>
+
+  </form>
 </div>
