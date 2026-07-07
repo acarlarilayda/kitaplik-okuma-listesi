@@ -17,10 +17,18 @@
   <tbody>
     <tr *ngFor="let row of data">
       <td *ngFor="let col of columns">
-  <span *ngIf="col.key === 'durum'; else normalHucre" [appDurumRozeti]="row[col.key]">
+  <span *ngIf="col.key === 'durum'" [appDurumRozeti]="row[col.key]">
     {{ row[col.key] }}
   </span>
-  <ng-template #normalHucre>{{ row[col.key] }}</ng-template>
+  <span *ngIf="col.key === 'puan'">
+    {{ row[col.key] | yildiz }}
+  </span>
+  <span *ngIf="col.key === 'eklenmeTarihi'">
+    {{ row[col.key] | turkceTarih }}
+  </span>
+  <span *ngIf="col.key !== 'durum' && col.key !== 'puan' && col.key !== 'eklenmeTarihi'">
+    {{ row[col.key] }}
+  </span>
 </td>
       <td *ngIf="showActions" class="data-table__actions">
         <button (click)="edit.emit(row)">Düzenle</button>

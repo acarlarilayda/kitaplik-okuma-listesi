@@ -42,12 +42,13 @@ export class BooksListComponent {
 
   // DataTable'a gönderilecek sütun tanımları
   columns: TableColumn<Book>[] = [
-    { key: 'ad', header: 'Kitap Adı', sortable: true },
-    { key: 'yazar', header: 'Yazar', sortable: true },
-    { key: 'tur', header: 'Tür', sortable: true },
-    { key: 'durum', header: 'Durum', sortable: true },
-    { key: 'puan', header: 'Puan', sortable: true }
-  ];
+  { key: 'ad', header: 'Kitap Adı', sortable: true },
+  { key: 'yazar', header: 'Yazar', sortable: true },
+  { key: 'tur', header: 'Tür', sortable: true },
+  { key: 'durum', header: 'Durum', sortable: true },
+  { key: 'puan', header: 'Puan', sortable: true },
+  { key: 'eklenmeTarihi', header: 'Eklenme Tarihi', sortable: true }
+];
 
   // ARAMA + FİLTRE: arama kutusuna göre kitapları filtreliyor
   filteredBooks = computed(() => {

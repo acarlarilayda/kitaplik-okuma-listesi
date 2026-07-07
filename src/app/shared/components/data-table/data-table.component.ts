@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DurumRozetiDirective } from '../../directives/durum-rozeti.directive';
-
+import { TurkceTarihPipe } from '../../pipes/turkce-tarih.pipe';
+import { YildizPipe } from '../../pipes/yildiz.pipe';
 export interface TableColumn<T> {
   key: keyof T;
   header: string;
@@ -11,7 +12,7 @@ export interface TableColumn<T> {
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [CommonModule, DurumRozetiDirective],
+  imports: [CommonModule, DurumRozetiDirective, TurkceTarihPipe, YildizPipe],
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.scss'
 })
