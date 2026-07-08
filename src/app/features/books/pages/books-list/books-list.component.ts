@@ -41,7 +41,7 @@ export class BooksListComponent {
   isLoading = signal(true);
 
   // DataTable'a gönderilecek sütun tanımları
-  columns: TableColumn<Book>[] = [
+ columns: TableColumn<Book>[] = [
   { key: 'ad', header: 'Kitap Adı', sortable: true },
   { key: 'yazar', header: 'Yazar', sortable: true },
   { key: 'tur', header: 'Tür', sortable: true },
