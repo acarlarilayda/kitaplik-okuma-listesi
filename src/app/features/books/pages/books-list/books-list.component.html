@@ -34,29 +34,33 @@
     />
   </div>
 
-  <app-loading-spinner *ngIf="isLoading()"></app-loading-spinner>
+@if (isLoading()) {
+  <app-loading-spinner></app-loading-spinner>
+}
 
+  @if (!isLoading()) {
   <app-data-table
-    *ngIf="!isLoading()"
     [data]="sortedBooks()"
     [columns]="columns"
     (sortChange)="onSortChange($event)"
     (edit)="onEdit($event)"
     (delete)="onDeleteRequest($event)"
   >
-   <app-empty-state
+    <app-empty-state
       emptyState
       mesaj="Henüz kitap eklenmemiş."
       butonMetni="İlk kitabını ekle"
       (butonaTiklandi)="goToAddBook()"
     ></app-empty-state>
   </app-data-table>
+}
 
+  @if (deleteTargetId() !== null) {
   <app-confirm-dialog
-    *ngIf="deleteTargetId() !== null"
     [acikMi]="true"
     baslik="Kitabı Sil"
     mesaj="Bu kitabı silmek istediğinize emin misiniz? Bu işlem geri alınamaz."
     (onaylandi)="onDeleteConfirm()"
     (iptalEdildi)="onDeleteCancel()"
   ></app-confirm-dialog>
+}
