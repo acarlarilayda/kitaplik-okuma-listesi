@@ -28,10 +28,10 @@
     <div class="books-form__field">
       <label class="books-form__label">Durum</label>
       <select formControlName="durum" class="books-form__select">
-        <option *ngFor="let opt of durumOptions" [value]="opt.value">
-          {{ opt.label }}
-        </option>
-      </select>
+  @for (opt of durumOptions; track opt.value) {
+    <option [value]="opt.value">{{ opt.label }}</option>
+  }
+</select>
     </div>
 
     <app-form-field
