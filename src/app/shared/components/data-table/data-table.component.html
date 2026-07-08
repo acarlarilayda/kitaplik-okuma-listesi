@@ -2,44 +2,53 @@
 <table class="data-table">
   <thead>
     <tr>
-      <th
-        *ngFor="let col of columns"
-        (click)="col.sortable && onSort(col.key)"
-        [class.data-table__sortable]="col.sortable"
-      >
-        {{ col.header }}
-        <span *ngIf="col.sortable && sortKey === col.key">
-          {{ sortDirection === 'asc' ? '▲' : '▼' }}
-        </span>
-      </th>
-      <th *ngIf="showActions"></th>
+     @for (col of columns; track col.key) {
+  <th
+    (click)="col.sortable && onSort(col.key)"
+    [class.data-table__sortable]="col.sortable"
+  >
+    {{ col.header }}
+    @if (col.sortable && sortKey === col.key) {
+      <span>{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+    }
+  </th>
+}
+@if (showActions) {
+  <th></th>
+} 
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of data">
-      <td *ngFor="let col of columns">
-  <span *ngIf="col.key === 'durum'" [appDurumRozeti]="row[col.key]">
-    {{ row[col.key] }}
-  </span>
-  <span *ngIf="col.key === 'puan'" class="yildiz-gosterim">
-  {{ row[col.key] | yildiz }}
-</span>
-  <span *ngIf="col.key === 'eklenmeTarihi'">
-    {{ row[col.key] | turkceTarih }}
-  </span>
-  <span *ngIf="col.key !== 'durum' && col.key !== 'puan' && col.key !== 'eklenmeTarihi'">
-    {{ row[col.key] }}
-  </span>
-<td *ngIf="showActions" class="data-table__actions">
-          <button (click)="edit.emit(row)" class="data-table__btn data-table__btn--edit">Düzenle</button>
-          <button (click)="delete.emit(row)" class="data-table__btn data-table__btn--delete">Sil</button>
-        </td>
-    </tr>
-    <tr *ngIf="data.length === 0">
-      <td [attr.colspan]="columns.length + (showActions ? 1 : 0)">
-        <ng-content select="[emptyState]"></ng-content>
+   @for (row of data; track row) {
+  <tr>
+    @for (col of columns; track col.key) {
+      <td>
+        @if (col.key === 'durum') {
+          <span [appDurumRozeti]="row[col.key]">{{ row[col.key] }}</span>
+        } @else if (col.key === 'puan') {
+          <span class="yildiz-gosterim">{{ row[col.key] | yildiz }}</span>
+        } @else if (col.key === 'eklenmeTarihi') {
+          <span>{{ row[col.key] | turkceTarih }}</span>
+        } @else {
+          <span>{{ row[col.key] }}</span>
+        }
       </td>
-    </tr>
+    }
+    @if (showActions) {
+      <td class="data-table__actions">
+        <button (click)="edit.emit(row)" class="data-table__btn data-table__btn--edit">Düzenle</button>
+        <button (click)="delete.emit(row)" class="data-table__btn data-table__btn--delete">Sil</button>
+      </td>
+    }
+  </tr>
+}
+@if (data.length === 0) {
+  <tr>
+    <td [attr.colspan]="columns.length + (showActions ? 1 : 0)">
+      <ng-content select="[emptyState]"></ng-content>
+    </td>
+  </tr>
+} 
   </tbody>
 </table>
 </div>
