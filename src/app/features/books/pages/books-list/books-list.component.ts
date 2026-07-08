@@ -9,6 +9,7 @@ import { DataTableComponent, TableColumn } from '../../../../shared/components/d
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-books-list',
@@ -97,14 +98,16 @@ export class BooksListComponent {
   });
 
   constructor(
-    private booksService: BooksService,
-    private router: Router
-  ) {
-    this.booksService.books$.subscribe(list => {
+  private booksService: BooksService,
+  private router: Router
+) {
+  this.booksService.books$
+    .pipe(takeUntilDestroyed())
+    .subscribe(list => {
       this.books.set(list);
       this.isLoading.set(false);
     });
-  }
+}
 
   onSearchChange(value: string): void {
     this.searchTerm.set(value);
