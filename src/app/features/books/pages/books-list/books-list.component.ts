@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { BooksService } from '../../services/books.service';
-import { Book } from '../../models/book.model';
 
 import { DataTableComponent, TableColumn } from '../../../../shared/components/data-table/data-table.component';
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 import { LoadingSpinnerComponent } from '../../../../shared/components/loading-spinner/loading-spinner.component';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Book, KitapDurumu } from '../../models/book.model';
 
 @Component({
   selector: 'app-books-list',
@@ -31,6 +31,20 @@ export class BooksListComponent {
   // Arama kutusuna yazılan metin
   searchTerm = signal('');
 
+  // Durum filtresi ('hepsi' = filtre yok)
+  durumFiltre = signal<KitapDurumu | 'hepsi'>('hepsi');
+
+  // Tür filtresi ('hepsi' = filtre yok)
+  turFiltre = signal<string>('hepsi');
+
+  // Mevcut kitaplardaki benzersiz türlerin listesi (dropdown için)
+  turListesi = computed(() => {
+    const turler = this.books()
+      .map(b => b.tur)
+      .filter((tur): tur is string => !!tur);
+    return Array.from(new Set(turler)).sort();
+  });
+ 
   // Sıralama bilgisi
   sortKey = signal<keyof Book | null>(null);
   sortDirection = signal<'asc' | 'desc'>('asc');
@@ -64,16 +78,22 @@ export class BooksListComponent {
 
   // ARAMA + FİLTRE: arama kutusuna göre kitapları filtreliyor
   filteredBooks = computed(() => {
-    const term = this.searchTerm().toLowerCase().trim();
-    const allBooks = this.books();
+  const term = this.searchTerm().toLowerCase().trim();
+  const durum = this.durumFiltre();
+  const tur = this.turFiltre();
+  const allBooks = this.books();
 
-    if (!term) return allBooks;
-
-    return allBooks.filter(book =>
+  return allBooks.filter(book => {
+    const aramaUyumu = !term ||
       book.ad.toLowerCase().includes(term) ||
-      book.yazar.toLowerCase().includes(term)
-    );
+      book.yazar.toLowerCase().includes(term);
+
+    const durumUyumu = durum === 'hepsi' || book.durum === durum;
+    const turUyumu = tur === 'hepsi' || book.tur === tur;
+
+    return aramaUyumu && durumUyumu && turUyumu;
   });
+});
 
   // SIRALAMA: filtrelenmiş listeyi sıralıyor
   sortedBooks = computed(() => {
@@ -111,6 +131,14 @@ export class BooksListComponent {
 
   onSearchChange(value: string): void {
     this.searchTerm.set(value);
+  }
+  
+  onDurumFiltreChange(value: string): void {
+    this.durumFiltre.set(value as KitapDurumu | 'hepsi');
+  }
+
+  onTurFiltreChange(value: string): void {
+    this.turFiltre.set(value);
   }
 
   onSortChange(event: { key: keyof Book; direction: 'asc' | 'desc' }): void {

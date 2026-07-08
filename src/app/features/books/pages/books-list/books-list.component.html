@@ -32,6 +32,25 @@
       [value]="searchTerm()"
       (input)="onSearchChange($any($event.target).value)"
     />
+    <select
+    class="books-list__filter"
+    (change)="onDurumFiltreChange($any($event.target).value)"
+  >
+    <option value="hepsi">Tüm Durumlar</option>
+    <option value="okunacak">Okunacak</option>
+    <option value="okunuyor">Okunuyor</option>
+    <option value="okundu">Okundu</option>
+  </select>
+
+  <select
+    class="books-list__filter"
+    (change)="onTurFiltreChange($any($event.target).value)"
+  >
+    <option value="hepsi">Tüm Türler</option>
+    @for (tur of turListesi(); track tur) {
+      <option [value]="tur">{{ tur }}</option>
+    }
+  </select>
   </div>
 
 @if (isLoading()) {
