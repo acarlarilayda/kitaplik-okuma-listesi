@@ -28,7 +28,7 @@ Kullanıcının okuduğu, okuyacağı ve okumakta olduğu kitapları takip edebi
 
 Proje, **feature-based mimari** ile core / shared / features katmanlarına ayrılmıştır:
 
-\`\`\`
+```
 src/app/
 ├── core/                    # Uygulama genelinde paylaşılan yapılar
 │   ├── guards/              # Route guard'lar
@@ -50,7 +50,7 @@ src/app/
         │   └── books-form/
         ├── services/
         └── models/
-\`\`\`
+```
 
 - **core:** Tüm uygulamada paylaşılan servisler ve guard'lar (`StorageService`, `ConfirmDialogService`, `unsavedChangesGuard`).
 - **shared:** Birden fazla yerde kullanılan bileşenler, pipe'lar, directive'ler ve validator'lar.
@@ -60,7 +60,7 @@ src/app/
 
 Projeyi kendi bilgisayarınızda çalıştırmak için:
 
-\`\`\`bash
+```
 # Depoyu klonlayın
 git clone https://github.com/acarlarilayda/kitaplik-okuma-listesi.git
 
@@ -72,9 +72,10 @@ npm install
 
 # Geliştirme sunucusunu başlatın
 ng serve
-\`\`\`
+```
 
 Uygulama varsayılan olarak `http://localhost:4200` adresinde açılır.
+
 
 ## 🖼️ Ekran Görüntüleri
 
@@ -89,3 +90,21 @@ Uygulama varsayılan olarak `http://localhost:4200` adresinde açılır.
 
 ### Silme Onayı
 ![Silme Onayı](./screenshots/silme-onay.png)
+
+## 🏗️ Mimari ve Custom Yapı Taşlarının Kullanım Yerleri
+
+Proje, core / shared / features katmanlarına ayrılmış feature-based bir mimariyle kurgulanmıştır. localStorage erişimi yalnızca `StorageService` üzerinden yapılır; hiçbir component doğrudan localStorage'a erişmez.
+
+**Custom Pipe'lar:**
+- `turkceTarih` — Kitap listesindeki "Eklenme Tarihi" kolonunda ISO tarihi Türkçe formata çevirir.
+- `yildiz` — Kitap listesindeki "Puan" kolonunda sayısal puanı yıldız gösterimine (★★★★☆) çevirir.
+
+**Custom Directive:**
+- `appDurumRozeti` — Kitap listesindeki durum rozetlerini (okunacak/okunuyor/okundu) renklendirir.
+
+**Custom Validator'lar:**
+- `positiveIntegerValidator` — Kitap ekleme/düzenleme formunda "Sayfa Sayısı" alanının pozitif tam sayı olmasını doğrular.
+- `ratingRangeValidator` — Kitap ekleme/düzenleme formunda "Puan" alanının 1-5 arasında olmasını doğrular.
+
+**Route Guard:**
+- `unsavedChangesGuard` — Kitap ekleme ve düzenleme sayfalarında (`/kitaplar/ekle`, `/kitaplar/:id/duzenle`) formda kaydedilmemiş değişiklik varken sayfadan ayrılmaya çalışıldığında kullanıcıyı uyarır.
