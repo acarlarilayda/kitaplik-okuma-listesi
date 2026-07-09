@@ -1,27 +1,91 @@
-# KitaplikApp
+# 📚 Kitaplık ve Okuma Listesi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Kullanıcının okuduğu, okuyacağı ve okumakta olduğu kitapları takip edebileceği kişisel bir kütüphane uygulaması. Angular ve localStorage kullanılarak geliştirilmiştir.
 
-## Development server
+🔗 **Canlı Demo:** [kitaplik-okuma-listesi.vercel.app](https://kitaplik-okuma-listesi.vercel.app)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ✨ Özellikler
 
-## Code scaffolding
+- **Kitap Ekleme / Düzenleme / Silme** — Reactive Forms ile tam CRUD desteği
+- **Okuma Durumu Takibi** — Okunacak / Okunuyor / Okundu (renkli rozetlerle görselleştirilir)
+- **1-5 Yıldız Puanlama**
+- **Arama ve Filtreleme** — Ad/yazara göre arama, türe ve okuma durumuna göre filtreleme
+- **Sıralama** — Tüm kolonlara göre artan/azalan sıralama
+- **Silme Onayı** — Geri alınamaz işlemlerde confirm dialog
+- **Kaydedilmemiş Değişiklik Uyarısı** — Formda değişiklik varken sayfadan ayrılmaya çalışınca uyarı
+- **Kalıcı Veri** — Tüm veriler tarayıcının localStorage'ında saklanır, sayfa yenilenince kaybolmaz
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🛠️ Kullanılan Teknolojiler
 
-## Build
+- **Angular 17** — Standalone components, Signals, yeni `@if`/`@for` control flow syntax'ı
+- **TypeScript**
+- **RxJS** — Servis katmanında `BehaviorSubject` / `Observable` ile state yönetimi
+- **Reactive Forms** — Form doğrulama ve custom validator'lar
+- **SCSS** — CSS custom properties (design tokens) ile tutarlı bir görsel dil
+- **localStorage** — Veri kalıcılığı için (backend yok)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 📁 Proje Yapısı
 
-## Running unit tests
+Proje, **feature-based mimari** ile core / shared / features katmanlarına ayrılmıştır:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+\`\`\`
+src/app/
+├── core/                    # Uygulama genelinde paylaşılan yapılar
+│   ├── guards/              # Route guard'lar
+│   └── services/            # StorageService, ConfirmDialogService
+├── shared/                  # Yeniden kullanılabilir bileşenler
+│   ├── components/
+│   │   ├── data-table/
+│   │   ├── confirm-dialog/
+│   │   ├── form-field/
+│   │   ├── empty-state/
+│   │   └── loading-spinner/
+│   ├── directives/
+│   ├── pipes/
+│   └── validators/
+└── features/
+    └── books/               # Kitap özelliğine ait her şey
+        ├── pages/
+        │   ├── books-list/
+        │   └── books-form/
+        ├── services/
+        └── models/
+\`\`\`
 
-## Running end-to-end tests
+- **core:** Tüm uygulamada paylaşılan servisler ve guard'lar (`StorageService`, `ConfirmDialogService`, `unsavedChangesGuard`).
+- **shared:** Birden fazla yerde kullanılan bileşenler, pipe'lar, directive'ler ve validator'lar.
+- **features/books:** Kitap özelliğine özel sayfalar, servis ve model.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🚀 Kurulum
 
-## Further help
+Projeyi kendi bilgisayarınızda çalıştırmak için:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+\`\`\`bash
+# Depoyu klonlayın
+git clone https://github.com/acarlarilayda/kitaplik-okuma-listesi.git
+
+# Proje klasörüne girin
+cd kitaplik-okuma-listesi
+
+# Bağımlılıkları yükleyin
+npm install
+
+# Geliştirme sunucusunu başlatın
+ng serve
+\`\`\`
+
+Uygulama varsayılan olarak `http://localhost:4200` adresinde açılır.
+
+## 🖼️ Ekran Görüntüleri
+
+### Boş Durum
+![Boş Durum](./screenshots/bos-durum.png)
+
+### Kitap Listesi
+![Kitap Listesi](./screenshots/liste.png)
+
+### Yeni Kitap Ekleme
+![Yeni Kitap Ekleme](./screenshots/form.png)
+
+### Silme Onayı
+![Silme Onayı](./screenshots/silme-onay.png)
